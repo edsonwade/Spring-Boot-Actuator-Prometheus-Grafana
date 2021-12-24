@@ -1,10 +1,17 @@
 package com.apllication.app.entities;
 
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Objects;
 
+@Entity
 public class User implements Serializable {
+    @Id // this id is primary key
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //auto increment the id
     private long id;
     private String name;
     private String email;
