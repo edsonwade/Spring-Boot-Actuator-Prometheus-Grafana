@@ -12,8 +12,8 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/users")
 public class UserResource {
-    @GetMapping
 
+    @GetMapping
     public ResponseEntity <User> findAll() {
         User user = new User(1L, "Vanilson muhongo", "vanilson@example.com", "999999", "12345");
         List<User> list = new ArrayList<>();
