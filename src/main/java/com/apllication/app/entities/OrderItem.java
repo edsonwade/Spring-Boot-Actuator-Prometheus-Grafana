@@ -66,6 +66,14 @@ public class OrderItem implements Serializable {
         this.price = price;
     }
 
+    /**
+     *
+     * @return Subtotal
+     */
+    public double getSubTotal() {
+        return price * quantity;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

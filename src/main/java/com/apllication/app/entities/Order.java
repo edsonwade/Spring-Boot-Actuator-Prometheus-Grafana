@@ -1,6 +1,7 @@
 package com.apllication.app.entities;
 
 import com.apllication.app.entities.enums.OrderStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -22,7 +23,7 @@ public class Order implements Serializable {
     @JoinColumn(name = "client_id")  // foreign key
     private User client;
 
-    @OneToOne(mappedBy = "order",cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
     private Payment payment;
 
     private Integer orderStatus;
@@ -90,6 +91,15 @@ public class Order implements Serializable {
 
     public void setItems(Set<OrderItem> items) {
         this.items = items;
+    }
+
+
+    public Double getTotal() {
+        double sum = 0.0;
+        for (OrderItem x : items) {
+            sum += x.getSubTotal();
+        }
+        return sum;
     }
 
     @Override
