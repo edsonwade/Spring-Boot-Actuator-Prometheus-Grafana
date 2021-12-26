@@ -5,7 +5,9 @@ import com.apllication.app.entities.enums.OrderStatus;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_order")
@@ -23,6 +25,8 @@ public class Order implements Serializable {
 
     private Integer orderStatus;
 
+   @OneToMany(mappedBy = "id.order")
+   private Set<OrderItem> items  = new HashSet<>();
 
     public Order() {
 
@@ -68,6 +72,14 @@ public class Order implements Serializable {
     public void setOrderStatus(OrderStatus orderStatus) {
         if (orderStatus != null)
             this.orderStatus = orderStatus.getCode();
+    }
+
+    public Set<OrderItem> getItems() {
+        return items;
+    }
+
+    public void setItems(Set<OrderItem> items) {
+        this.items = items;
     }
 
     @Override

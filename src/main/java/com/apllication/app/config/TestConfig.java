@@ -1,14 +1,8 @@
 package com.apllication.app.config;
 
-import com.apllication.app.entities.Category;
-import com.apllication.app.entities.Order;
-import com.apllication.app.entities.Product;
-import com.apllication.app.entities.User;
+import com.apllication.app.entities.*;
 import com.apllication.app.entities.enums.OrderStatus;
-import com.apllication.app.repository.CategoryRepo;
-import com.apllication.app.repository.OrderRepo;
-import com.apllication.app.repository.ProductRepo;
-import com.apllication.app.repository.UserRepo;
+import com.apllication.app.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -30,6 +24,9 @@ public class TestConfig implements CommandLineRunner {
 
     @Autowired
     private ProductRepo productRepo;
+
+    @Autowired
+    private OrderItemRepo orderItemRepo;
 
 
     @Override
@@ -61,12 +58,20 @@ public class TestConfig implements CommandLineRunner {
         p3.getCategories().add(cat3);
         p4.getCategories().add(cat3);
         p5.getCategories().add(cat2);
-       // productRepo.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
+        // productRepo.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
 
         userRepo.saveAll(Arrays.asList(u1, u2));
         orderRepo.saveAll(Arrays.asList(o1, o2, o3, o4, o5));
         categoryRepo.saveAll(Arrays.asList(cat1, cat2, cat3));
         productRepo.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
+
+
+        OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
+        OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice());
+        OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
+        OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
+
+        orderItemRepo.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
 
     }
 }
