@@ -22,11 +22,13 @@ public class Order implements Serializable {
     @JoinColumn(name = "client_id")  // foreign key
     private User client;
 
+    @OneToOne(mappedBy = "order",cascade = CascadeType.ALL)
+    private Payment payment;
 
     private Integer orderStatus;
 
-   @OneToMany(mappedBy = "id.order")
-   private Set<OrderItem> items  = new HashSet<>();
+    @OneToMany(mappedBy = "id.order")
+    private Set<OrderItem> items = new HashSet<>();
 
     public Order() {
 
@@ -72,6 +74,14 @@ public class Order implements Serializable {
     public void setOrderStatus(OrderStatus orderStatus) {
         if (orderStatus != null)
             this.orderStatus = orderStatus.getCode();
+    }
+
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
     }
 
     public Set<OrderItem> getItems() {
