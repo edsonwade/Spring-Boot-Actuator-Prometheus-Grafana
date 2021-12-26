@@ -35,11 +35,16 @@ public class UserService {
 
     /**
      * inseri um novo usuario
+     *
      * @param obj
      * @return
      */
     public User insert(User obj) {
         return userRepo.save(obj);
+    }
+
+    public void delete(Long id) {
+        userRepo.deleteById(id);
     }
 
 }
