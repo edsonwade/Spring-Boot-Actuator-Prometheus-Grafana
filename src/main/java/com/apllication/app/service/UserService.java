@@ -33,4 +33,13 @@ public class UserService {
         return obj.get();
     }
 
+    /**
+     * inseri um novo usuario
+     * @param obj
+     * @return
+     */
+    public User insert(User obj) {
+        return userRepo.save(obj);
+    }
+
 }
