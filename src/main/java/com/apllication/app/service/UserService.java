@@ -2,6 +2,7 @@ package com.apllication.app.service;
 
 import com.apllication.app.entities.User;
 import com.apllication.app.repository.UserRepo;
+import com.apllication.app.service.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -25,12 +26,12 @@ public class UserService {
 
     /**
      * find the user by id
-     *
+     * lança a  exceção se o obejeco usuario não existir
      * @param id
      */
     public User findById(Long id) {
         Optional<User> obj = userRepo.findById(id);
-        return obj.get();
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     /**
@@ -55,6 +56,7 @@ public class UserService {
 
     /**
      * atualize os  dados do usuário
+     *
      * @param entity
      * @param obj
      */
