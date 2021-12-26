@@ -2,8 +2,11 @@ package com.apllication.app.service;
 
 import com.apllication.app.entities.User;
 import com.apllication.app.repository.UserRepo;
+import com.apllication.app.service.exception.DataBaseException;
 import com.apllication.app.service.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +30,7 @@ public class UserService {
     /**
      * find the user by id
      * lança a  exceção se o obejeco usuario não existir
+     *
      * @param id
      */
     public User findById(Long id) {
@@ -45,7 +49,14 @@ public class UserService {
     }
 
     public void delete(Long id) {
-        userRepo.deleteById(id);
+        try {
+            userRepo.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new DataBaseException(e.getMessage());
+        }
+
     }
 
     public User update(Long id, User obj) {
